@@ -9,7 +9,7 @@ Date: 2026-11-04 · Data: USAID GHSC-PSM Health Commodity Delivery Dataset
 
 | File | What it is |
 |---|---|
-| `USAID_GHSC-PSM_Health_Commodity_Delivery_Dataset.csv` | Original data (39,681 rows × 104 columns). Source: data.usaid.gov dataset tikn-bfy4, Internet Archive snapshot of June 11, 2024 (link in the proposal). |
+| `USAID_GHSC-PSM_Health_Commodity_Delivery_Dataset.zip` | Original data, zipped because the CSV (42 MB) is too large for GitHub's browser upload. **Unzip it into this same folder first**; it contains `USAID_GHSC-PSM_Health_Commodity_Delivery_Dataset.csv` (39,681 rows × 104 columns). Source: data.usaid.gov dataset tikn-bfy4, Internet Archive snapshot of June 11, 2024 (link in the proposal). |
 | `data_dictionary.csv` | For each of the 76 base columns: plain-English definition, timing ("when is it known?"), clarity note, and **Decision + Reason** (IV / Input or filter / DV source / Not used, and why) |
 | `01_load_data.R` … `06_boxplots_for_slides.R` | R scripts. Run them in this order (base R only, no packages). |
 | `output/` | Results of each script, so you can use them without re-running |
@@ -66,7 +66,7 @@ Date: 2026-11-04 · Data: USAID GHSC-PSM Health Commodity Delivery Dataset
 
 ## 3. How to reproduce
 
-1. Put everything in one folder. In each script, change the line `setwd("C:/BIZANwR")` to your folder.
+1. Put everything in one folder and **unzip `USAID_GHSC-PSM_Health_Commodity_Delivery_Dataset.zip` into that same folder**, so the CSV sits next to the R scripts. In each script, change the line `setwd("C:/BIZANwR")` to your folder.
 2. Run 01 → 06 in order. Scripts 04–06 need the output of 03 (and 06 needs 05).
 3. Check these numbers:
    - 03: final line of `output/03_exclusion_log.csv` = **28,556**
