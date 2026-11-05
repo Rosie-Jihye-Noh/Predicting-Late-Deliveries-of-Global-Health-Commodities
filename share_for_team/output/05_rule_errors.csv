@@ -1,0 +1,8 @@
+"Rule","Rows"
+"Promised (agreed) delivery date after 2030",35
+"Supplier committed goods date after 2030",10
+"Requested delivery date after 2030",1
+"Requested delivery date more than 5 years after order entry",3
+"Promised date earlier than order entry",9
+"USAID approval time < 0",39
+"Ordered quantity = 0",2

@@ -1,0 +1,16 @@
+                          Variable Text_present Parse_failed
+1                 Order Entry Date        39681            0
+2          Requested Delivery Date        38976            0
+3             Agreed Delivery Date        39605            0
+4 PO Released For Fulfillment Date        39318            0
+5   Committed Goods Available Date        39191            0
+6      Latest Actual Delivery Date        39681            0
+                           Step Removed Remaining
+1                 Original data      NA     39681
+2                   OTD missing      10     39671
+3            Exclusion flag = Y      25     39646
+4           Replenishment order    1678     37968
+5 PO date after actual delivery    2962     35006
+6     Entered before 2017-10-01    6450     28556
+[1] 0.1136714
+[1] 0.1043564

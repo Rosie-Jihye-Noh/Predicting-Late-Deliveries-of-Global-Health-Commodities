@@ -1,0 +1,4 @@
+"Step","Removed","Remaining"
+"Analysis sample (from 03)",NA,28556
+"Decision 1: impossible values",98,28458
+"Decision 4: missing numeric predictor",508,27950

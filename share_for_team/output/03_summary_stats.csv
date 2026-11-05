@@ -1,0 +1,66 @@
+"Variable","Role","Type","Definition","N","Missing","Mean","Std.Dev","Min","Max"
+"Not On Time (DV A)","DV","Numeric","1 = delivered outside 14 days early to 7 days late vs. promised date",28556,0,0.114,0.317,0,1
+"Late Only (DV B)","DV (robustness)","Numeric","1 = delivered more than 7 days late",28556,0,0.104,0.306,0,1
+"Ordered Quantity","IV","Numeric","Number of units ordered",28556,0,29386.225,113616.48,0,2890944
+"Unit Price (USD, assumed)","IV","Numeric","Estimated price per ordered unit",28554,2,415.954,4450.608,0.01,193455
+"Line Value (USD)","IV (new)","Numeric","Ordered quantity x unit price",28554,2,141354.826,394587.137,0,20145375
+"Lines per Order","IV (new)","Numeric","Number of lines in the same order",28556,0,6.023,7.112,1,51
+"Planned Lead Time (days)","IV (new)","Numeric","Promised date - order entry date",28556,0,293.728,1024.192,-223,30032
+"Promise vs. Request (days)","IV (new)","Numeric","Promised date - date the country asked for",28129,427,104.865,977.972,-29048,29840
+"USAID Approval Time (days)","IV","Numeric","Days from country approval to USAID approval",28479,77,4.878,16.172,-12,233
+"PO Processing Time (days)","IV","Numeric","Days from USAID approval to purchase order release",28523,33,48.382,53.943,0,775
+"Entry to PO (days)","IV (new)","Numeric","Days from order entry to purchase order release",28556,0,122.8,88.696,0,797
+"Days Left at PO (days)","IV (new)","Numeric","Promised date - PO release date (negative = already past)",28556,0,170.929,1011.901,-618,29749
+"Supplier Slack (days)","IV (new)","Numeric","Promised date - date supplier promised goods ready",28546,10,100.671,1145.521,-28909,29746
+"Order Type: Purchase Order","IV","Dummy (0/1)","Purchase order or distribution order",28556,0,0.895,0.307,0,1
+"Order Type: Distribution Order","IV","Dummy (0/1)","Purchase order or distribution order",28556,0,0.105,0.307,0,1
+"TLP Indicator: GSC","IV","Dummy (0/1)","Logistics channel code (meaning not documented)",28556,0,0.646,0.478,0,1
+"TLP Indicator: DCP","IV","Dummy (0/1)","Logistics channel code (meaning not documented)",28556,0,0.354,0.478,0,1
+"Transportation Mode: Air","IV","Dummy (0/1)","Planned transport mode (assumed)",28556,0,0.495,0.5,0,1
+"Transportation Mode: Land","IV","Dummy (0/1)","Planned transport mode (assumed)",28556,0,0.258,0.438,0,1
+"Transportation Mode: Sea","IV","Dummy (0/1)","Planned transport mode (assumed)",28556,0,0.246,0.43,0,1
+"Transportation Mode: Multiple","IV","Dummy (0/1)","Planned transport mode (assumed)",28556,0,0.002,0.039,0,1
+"Task Order: TO1","IV","Dummy (0/1)","Program area (condom-adjusted)",28556,0,0.763,0.425,0,1
+"Task Order: TO2","IV","Dummy (0/1)","Program area (condom-adjusted)",28556,0,0.148,0.355,0,1
+"Task Order: TO3","IV","Dummy (0/1)","Program area (condom-adjusted)",28556,0,0.048,0.214,0,1
+"Task Order: TO4","IV","Dummy (0/1)","Program area (condom-adjusted)",28556,0,0.042,0.2,0,1
+"Product Category: Laboratory Reagents","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.239,0.426,0,1
+"Product Category: Laboratory Consumables","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.204,0.403,0,1
+"Product Category: Other","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.134,0.341,0,1
+"Product Category: HIV/AIDS Pharmaceuticals","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.111,0.314,0,1
+"Product Category: Malaria Pharmaceuticals","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.084,0.278,0,1
+"Product Category: Essential Medicines","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.082,0.275,0,1
+"Product Category: Medical Supplies","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.038,0.192,0,1
+"Product Category: Respiratory Support","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.037,0.188,0,1
+"Product Category: Laboratory Equipment","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.026,0.16,0,1
+"Product Category: Long Lasting Insecticide Treated Nets (LLINs)","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.023,0.151,0,1
+"Product Category: Male Condoms","IV","Dummy (0/1)","Product type (groups under 500 rows = Other)",28556,0,0.021,0.144,0,1
+"Country: Other","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.222,0.415,0,1
+"Country: Mozambique","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.146,0.354,0,1
+"Country: Congo DRC","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.141,0.348,0,1
+"Country: Nigeria","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.091,0.288,0,1
+"Country: Zambia","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.086,0.28,0,1
+"Country: Haiti","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.062,0.241,0,1
+"Country: Uganda","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.055,0.228,0,1
+"Country: Tanzania","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.047,0.212,0,1
+"Country: Ethiopia","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.044,0.205,0,1
+"Country: Zimbabwe","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.031,0.174,0,1
+"Country: Rwanda","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.028,0.166,0,1
+"Country: Cameroon","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.025,0.157,0,1
+"Country: Côte d'Ivoire","IV","Dummy (0/1)","Recipient country (countries under 500 rows = Other)",28556,0,0.021,0.142,0,1
+"Framework Contract: Framework","IV","Dummy (0/1)","Bought under a long-term supplier contract",28556,0,0.608,0.488,0,1
+"Framework Contract: Non-Framework","IV","Dummy (0/1)","Bought under a long-term supplier contract",28556,0,0.302,0.459,0,1
+"Framework Contract: Unknown","IV","Dummy (0/1)","Bought under a long-term supplier contract",28556,0,0.09,0.286,0,1
+"Funding Source: Mission Commodity Funding","IV","Dummy (0/1)","Type of funding",28556,0,0.886,0.318,0,1
+"Funding Source: CORE Commodity Funding","IV","Dummy (0/1)","Type of funding",28556,0,0.097,0.297,0,1
+"Funding Source: Other Donors Commodity Funding","IV","Dummy (0/1)","Type of funding",28556,0,0.013,0.113,0,1
+"Funding Source: Unknown","IV","Dummy (0/1)","Type of funding",28556,0,0.004,0.062,0,1
+"Vendor Incoterm: FCA","IV","Dummy (0/1)","Shipping terms with the supplier",28556,0,0.539,0.498,0,1
+"Vendor Incoterm: DDP","IV","Dummy (0/1)","Shipping terms with the supplier",28556,0,0.221,0.415,0,1
+"Vendor Incoterm: Unknown","IV","Dummy (0/1)","Shipping terms with the supplier",28556,0,0.105,0.307,0,1
+"Vendor Incoterm: DAP","IV","Dummy (0/1)","Shipping terms with the supplier",28556,0,0.098,0.297,0,1
+"Vendor Incoterm: CIP","IV","Dummy (0/1)","Shipping terms with the supplier",28556,0,0.026,0.16,0,1
+"Vendor Incoterm: Other","IV","Dummy (0/1)","Shipping terms with the supplier",28556,0,0.011,0.102,0,1
+"Destination Incoterm: DDP","IV","Dummy (0/1)","Shipping terms for delivery to the country",28556,0,0.546,0.498,0,1
+"Destination Incoterm: DAP","IV","Dummy (0/1)","Shipping terms for delivery to the country",28556,0,0.41,0.492,0,1
+"Destination Incoterm: Other","IV","Dummy (0/1)","Shipping terms for delivery to the country",28556,0,0.043,0.204,0,1

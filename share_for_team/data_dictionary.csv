@@ -1,0 +1,77 @@
+Variable,Group,Definition,Timing,Clarity,Note,Decision,Reason
+ROPOLine,A_ID,Unique ID of each order line,ID,Clear,One per row,Not used,ID or name only
+Task Order,A_ID,"Program area of the contract: TO1 HIV/AIDS, TO2 malaria, TO3 family planning, TO4 mother and child health",Order entry,Clear,Matches D365 Health Element,Not used,Same information as Condom Adjusted Task Order
+Condom Adjusted Task Order,A_ID,"Same as Task Order, but condoms and lubricants are moved from TO3 to TO1",Order entry,Clear,177 rows differ; program reports condoms under TO1,IV,Predictor (program area; the program's reporting version of Task Order)
+RO Number,A_ID,ID of the country's order request,ID,Clear,,Not used,ID or name only
+PO DO IO Number,A_ID,ID of the purchase or warehouse order,ID,Clear,,Not used,ID or name only
+Order Number,A_ID,ID of the order; one order can have many lines,ID,Clear,"18,198 orders; use for grouped split",Input or filter,Builds lines per order; kept as ID
+Prime Line Number,A_ID,Line number inside the order,ID,Clear,,Not used,ID or name only
+Product ID,A_ID,Product code,ID,Clear,"4,592 products; too many to model",Not used,"Too many categories (4,592 products)"
+Product_Name,A_ID,Product name,ID,Clear,,Not used,ID or name only
+Country,B_Order,Country receiving the goods,Order entry,Clear,96 countries; group small ones,IV,Predictor (countries under 500 lines merged into Other)
+TLP Indicator,B_Order,Procurement channel code (GSC or DCP),Order entry,Partly unclear,What TLP stands for is not documented. Likely: DCP = decentralized procurement (acronym list in public GHSC-PSM FY22 Q4 and FY23 Q4 reports; teams near countries buy mostly lab commodities); in our data 80% of DCP lines are lab reagents/consumables and DCP lines never go through a regional warehouse. GSC likely = central Global Supply Chain channel (report section name); not confirmed for this column,IV,Predictor (procurement channel code GSC/DCP)
+Order Type,B_Order,"Purchase order (from a supplier), distribution order (from a regional warehouse), or replenishment order (to restock a warehouse)",Order entry,Clear,"Replenishment: 1,678 rows; Country is a warehouse location (e.g., UAE, Belgium, South Africa); 76.5% not on time",IV,Predictor (purchase vs. distribution order); also used to drop replenishment orders
+Fulfillment Method,B_Order,Direct Drop (supplier ships straight to the country) or RDC (shipped from a regional warehouse),Order entry,Clear,"RDC = distribution order in every row. Direct Drop splits into purchase and replenishment orders, so Order Type has more detail",Not used,Same information as Order Type (RDC = distribution order)
+Transportation Mode,B_Order,"Air, land, sea, or multiple",Unclear,Partly unclear,Not stated whether this is the planned or actual mode,IV,Predictor (timing assumed known by PO release)
+Item Tracer Category,B_Order,Product group used for program reporting (28 groups),Order entry,Clear,,Not used,Overlaps Product Category (can be swapped in as a robustness check)
+Product Category,B_Order,"Product type (34 types, e.g., lab reagents, HIV medicines)",Order entry,Clear,Group rare types,IV,Predictor (groups under 500 lines merged into Other)
+UOM,B_Order,Unit the product is ordered in (code),Order entry,Clear,,Not used,Packaging or unit detail only
+Base Unit,B_Order,"Smallest unit of the product (pack, each, kit)",Order entry,Clear,,Not used,Packaging or unit detail only
+Base Unit Multiplier,B_Order,Number of base units in one ordered unit,Order entry,Clear,,Not used,Packaging or unit detail only
+Framework Contract,B_Order,Bought under a long-term supplier contract with pre-set prices (yes/no),Order entry,Clear,"5,268 missing, mostly distribution orders; keep missing as its own group",IV,Predictor (blank kept as Unknown)
+D365 Health Element,B_Order,"Health program that pays for the order (e.g., HIV/AIDS, malaria)",Order entry,Clear,"D365 likely refers to Microsoft Dynamics 365, a business software system (assumed)",Not used,Same information as Task Order
+D365 Funding Source,B_Order,Type of funding,Order entry,Partly unclear,"Likely (from Funding Source Detail labels, not documented): Mission = USAID country-office funds (top details PEPFAR-COP-USAID, PMI MOP); CORE = central funds (COVID19, PEPFAR-Condom Fund, TO3 Ebola); Other Donors = CDC, DOD, DFID",IV,Predictor (spelling variants merged; blank kept as Unknown)
+D365 Funding Source Detail,B_Order,Funding source in detail (50 types),Order entry,Partly unclear,Labels are internal codes,Not used,Too detailed (50 internal codes)
+Fiscal_Year_Funding,B_Order,U.S. fiscal year of the funds,Order entry,Clear,"13,658 missing",Not used,34% blank
+Estimated Lead Time in Days,B_Order,Planned days from USAID approval to delivery,At approval,Partly unclear,Agreed delivery date = USAID approval date + this value in 76% of rows; how it is set is not documented,Not used,Overlaps planned lead time (correlation 0.76) and 24% blank
+Vendor Incoterm,B_Order,Shipping terms with the supplier (who pays for and is responsible for transport),At PO release,Clear,302 messy labels; keep the 3-letter code,IV,Predictor (cleaned to 3-letter code; blank kept as Unknown)
+Destination Incoterm,B_Order,Shipping terms for delivery to the country,At PO release,Clear,"5,815 missing",IV,Predictor (rare codes merged into Other)
+Illustrative Price,B_Order,Estimated price per ordered unit,Order entry,Partly unclear,Currency (USD) assumed; very skewed,IV,Predictor (log10 version for Logistic Regression); also builds line value
+Ordered Quantity,B_Order,Number of units ordered,Order entry,Clear,Very skewed; 3 zeros,IV,Predictor (log10 version for Logistic Regression); also builds line value
+Order Entry Date,C_Plan,Date the order was entered,Order entry,Clear,Start point of the timeline,Input or filter,Builds planned lead time and entry to PO; keeps orders from Oct 2017; kept as ID for the time split
+Requested Delivery Date,C_Plan,Delivery date the country asked for,Order entry,Clear,,Input or filter,Builds promise vs. request
+Agreed Delivery Date,C_Plan,Delivery date the program first promised,At approval,Clear,"77 dummy dates (2099, 2108)",Input or filter,"Builds planned lead time, promise vs. request, days left at PO and supplier slack"
+Estimated Delivery Date,C_Plan,Expected delivery date,Unclear,Partly unclear,Not stated when it is updated,Not used,When it is updated is unknown; left out to avoid leakage
+Revised Agreed Delivery Date,C_Plan,Promised delivery date after approved changes; used to judge on-time delivery,Result,Clear,Use only to build the dependent variable,DV source,"Date the on-time rule is judged against; can change after PO release, so not a predictor"
+RO Clarified Date,D_Milestone,Date the country's request was clarified,After entry,Clear,"25,414 missing",Not used,Middle-step date; covered by the duration variables
+RO Sent Plan Fulfillment Date,D_Milestone,Date the request was sent for supply planning,After entry,Clear,"37,471 missing",Not used,Middle-step date; covered by the duration variables
+RO Sent Sourcing RFX Event Date,D_Milestone,Date the request was sent out for supplier bids,After entry,Clear,"28,133 missing",Not used,Middle-step date; covered by the duration variables
+Initial PSM Source Approval Date,D_Milestone,Date the program approved the supplier choice,After entry,Clear,About 41 days after entry,Not used,Middle-step date; covered by the duration variables
+Recipient Approval Date,D_Milestone,Date the receiving country approved,After entry,Clear,About 45 days after entry,Not used,Middle-step date; covered by the duration variables
+USAID Approval Date,D_Milestone,Date USAID approved,After entry,Clear,About 51 days after entry,Not used,Middle-step date; covered by the duration variables
+PO Released For Fulfillment Date,D_Milestone,Date the purchase order was sent to the supplier,At PO release,Clear,About 101 days after entry; 7.5% are later than the actual delivery (data issue),Input or filter,Builds days left at PO and entry to PO; used to drop lines with PO date after delivery
+Committed Goods Available Date,D_Milestone,Date the supplier promised the goods would be ready,At PO release,Partly unclear,Not stated whether it is updated later,Input or filter,Builds supplier slack (assumed not updated after PO release)
+Actual Goods Available Date,D_Milestone,Date the goods were actually ready,After shipping,Clear,,Not used,Known only after PO release (would leak the answer)
+Actual Cargo Ready Date,D_Milestone,Date the cargo was actually ready to ship,After shipping,Clear,,Not used,Known only after PO release (would leak the answer)
+QA Complete Date,D_Milestone,Date the quality check was finished,After shipping,Clear,,Not used,Known only after PO release (would leak the answer)
+Max Pick Up Date,D_Milestone,Last pick-up date (if shipped in parts),After shipping,Clear,,Not used,Known only after PO release (would leak the answer)
+Max Ship Date,D_Milestone,Last ship date (if shipped in parts),After shipping,Clear,,Not used,Known only after PO release (would leak the answer)
+Max Departure Date,D_Milestone,Last departure date (if shipped in parts),After shipping,Clear,,Not used,Known only after PO release (would leak the answer)
+Max Arrival Date,D_Milestone,Last arrival date (if shipped in parts),After shipping,Clear,,Not used,Known only after PO release (would leak the answer)
+Order Cycle Time,E_Duration,Days from order entry to actual delivery,Result,Clear,Matches the two dates in 100% of rows; leakage,Not used,Known only after PO release (would leak the answer)
+RO Validation,E_Duration,Days from order entry to sending the request for supplier bids,After entry,Clear,Matches the two dates in 99% of rows,Not used,About 46% blank; covered by entry to PO
+Sourcing and Planning,E_Duration,Days from sending the request for bids to country approval,After entry,Clear,Matches the two dates in 99% of rows,Not used,About 46% blank; covered by entry to PO
+USAID Approval,E_Duration,Days from country approval to USAID approval,At approval,Clear,Matches the two dates in 92.5% of rows; used by Gali et al.,IV,Predictor (days); negative values removed as errors
+Process PO/DO,E_Duration,Days from USAID approval to sending the purchase order,At PO release,Clear,Matches the two dates in 94% of rows; used by Gali et al.,IV,Predictor (days)
+Manufacture,E_Duration,Days from sending the purchase order to goods being ready,After shipping,Clear,Matches the two dates in 99.9% of rows,Not used,Known only after PO release (would leak the answer)
+Pick Up,E_Duration,Days from goods being ready to pick-up,After shipping,Clear,Matches the two dates in 99.8% of rows,Not used,Known only after PO release (would leak the answer)
+Deliver,E_Duration,Days from pick-up to delivery,After shipping,Clear,Matches the two dates in 100% of rows,Not used,Known only after PO release (would leak the answer)
+Quality Assurance,E_Duration,Days from goods being ready to the end of the quality check,After shipping,Clear,Matches the two dates in 100% of rows,Not used,Known only after PO release (would leak the answer)
+Reason Code,E_Duration,"Code for the reason of a change (e.g., AD012, SD000)",After shipping,Unclear,61 codes; list of meanings not available,Not used,Known only after PO release (would leak the answer)
+Reason Code Duration,E_Duration,Number of days linked to the reason code,After shipping,Partly unclear,Equals revised minus first promised date in 71% of rows; has extreme values,Not used,Known only after PO release (would leak the answer)
+Status Name,F_Outcome,"Shipment status (delivered, partly delivered, created)",Result,Partly unclear,13 'created' rows still have delivery dates,Not used,Known only after PO release (would leak the answer)
+Shipped Quantity,F_Outcome,Number of units actually shipped,Result,Clear,Used by Gali et al.,Not used,Known only after PO release (would leak the answer)
+OTD OTIF Exclusion Flag,F_Outcome,Line left out of the program's on-time numbers (Y),Result,Partly unclear,"Meaning taken from the column name; reason for exclusion not documented (not found in the FY2018 Annual Report). 25 rows (20 orders, 2021-2022) still have OTD values (N 17, Y 8); drop (0.06% of rows)",Input or filter,Row filter: 25 lines the program excluded
+In Full (IFD),F_Outcome,Full quantity delivered (Y/N),Result,Clear,,Not used,Outcome measure known only after delivery (would leak the answer)
+On Time (OTD),F_Outcome,Delivered between 14 days early and 7 days late versus the promised date (Y/N),Result,Clear,Official program measure; dependent variable. -14/+7 rule from the GHSC-PSM FY2018 Annual Report; matches the data in 97.9% of rows,DV source,Builds DV A (Not On Time)
+Between -14 and 14,F_Outcome,Delivered between 14 days early and 14 days late (Y/N),Result,Clear,,Not used,Outcome measure known only after delivery (would leak the answer)
+Between -30 and 30,F_Outcome,Delivered between 30 days early and 30 days late (Y/N),Result,Clear,,Not used,Outcome measure known only after delivery (would leak the answer)
+OTIF Categories,F_Outcome,"On time and in full, combined into 4 groups",Result,Clear,,Not used,Outcome measure known only after delivery (would leak the answer)
+OTIF Between -14 and 14,F_Outcome,Same as OTIF Categories with a 14-day window,Result,Clear,,Not used,Outcome measure known only after delivery (would leak the answer)
+OTIF Between -30 and 30,F_Outcome,Same as OTIF Categories with a 30-day window,Result,Clear,,Not used,Outcome measure known only after delivery (would leak the answer)
+Average Days Late Binned,F_Outcome,"Days late, grouped into ranges",Result,Clear,"Blank for all 30,847 on-time lines (so 77.8% missing is by design)",Not used,Outcome measure known only after delivery (would leak the answer)
+Average Days Late,F_Outcome,Days between actual delivery and the promised date (minus = early),Result,Partly unclear,Seems averaged over split shipments; extreme values from dummy dates,Not used,Outcome measure known only after delivery (would leak the answer)
+Number of Shipments,F_Outcome,Number of shipments the line was split into,Result,Clear,Used by Gali et al.,Not used,Known only after PO release (would leak the answer)
+Delivery Progress,F_Outcome,Delivery progress code,Result,Unclear,Always 2; meaning not documented; drop,Not used,Same value (2) in every row
+Line Delivery Status,F_Outcome,"Delivered early, on time, or late",Result,Clear,,DV source,Builds DV B (Late Only)
+Latest Actual Delivery Date,F_Outcome,Date the goods were delivered (last shipment),Result,Clear,,Not used,Known only after PO release (would leak the answer); used only to drop lines with PO date after delivery

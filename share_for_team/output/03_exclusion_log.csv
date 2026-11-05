@@ -1,0 +1,7 @@
+"Step","Removed","Remaining"
+"Original data",NA,39681
+"OTD missing",10,39671
+"Exclusion flag = Y",25,39646
+"Replenishment order",1678,37968
+"PO date after actual delivery",2962,35006
+"Entered before 2017-10-01",6450,28556

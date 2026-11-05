@@ -1,0 +1,23 @@
+
+character   integer   numeric 
+       71        30         3 
+
+        A_ID      B_Order       C_Plan  D_Milestone Derived_Date   E_Duration    F_Outcome 
+           9           20            5           15           28           11           16 
+                          Variable N_Missing Pct_Missing
+32         OTD OTIF Exclusion Flag     39656        99.9
+52   RO Sent Plan Fulfillment Date     37471        94.4
+74               Quality Assurance     36376        91.7
+61                QA Complete Date     35584        89.7
+40        Average Days Late Binned     30857        77.8
+53 RO Sent Sourcing RFX Event Date     28133        70.9
+51               RO Clarified Date     25414        64.0
+76            Reason Code Duration     20405        51.4
+72                         Pick Up     20078        50.6
+68           Sourcing and Planning     19833        50.0
+67                   RO Validation     19757        49.8
+60         Actual Cargo Ready Date     18274        46.1
+64              Max Departure Date     16093        40.6
+59     Actual Goods Available Date     15406        38.8
+62                Max Pick Up Date     14240        35.9
+[1] "OTD OTIF Exclusion Flag" "Delivery Progress"      
