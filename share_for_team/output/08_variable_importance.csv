@@ -1,0 +1,22 @@
+"Variable","Column","Importance"
+"Supplier slack","slack",12.6
+"Country","country",11.3
+"Product category","product",9
+"Planned lead time","planned_lead",8.3
+"Days left at PO","days_left_at_po",8.1
+"Vendor incoterm","vendor_inco",7.8
+"Lines per order","lines_per_order",7
+"Entry to PO","entry_to_po",5.9
+"TLP indicator","tlp",5
+"Promise vs. request","request_gap",4.9
+"PO processing time","po_processing_days",4.1
+"Transport mode","transport",3.3
+"Framework contract","framework",2.4
+"Unit price","unit_price",1.6
+"Funding source","funding",1.5
+"Ordered quantity","ordered_qty",1.4
+"Task order","task_order",1.4
+"USAID approval time","usaid_approval_days",1.4
+"Line value","line_value",1.1
+"Destination incoterm","dest_inco",1
+"Order type","order_type",0.8

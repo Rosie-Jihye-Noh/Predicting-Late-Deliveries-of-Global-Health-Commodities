@@ -1,4 +1,0 @@
-"Model","Leaves","First_split","Top_3_variables"
-"Main: Not On Time, all 21 predictors",57,"Supplier slack","Supplier slack, Country, Product category"
-"Without supplier slack",63,"Days left at PO","Country, Days left at PO, Lines per order"
-"DV B: late only",80,"Days left at PO","Days left at PO, Country, Planned lead time"

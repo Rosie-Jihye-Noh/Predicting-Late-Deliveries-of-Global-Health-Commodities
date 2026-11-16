@@ -1,4 +1,0 @@
-"Tree","CP","Splits","Leaves","CV_rel_error"
-"Full tree",5e-04,131,132,0.672
-"Lowest CV error",0.00175,63,64,0.663
-"Final tree (1-SE rule)",0.00195,56,57,0.673

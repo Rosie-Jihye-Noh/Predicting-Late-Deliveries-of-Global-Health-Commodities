@@ -17,6 +17,9 @@ Date: 2026-11-04, updated 2026-11-12 · Data: USAID GHSC-PSM Health Commodity De
 | `output/05_summary_stats_final.csv` | Table 1 (mean, SD, min, max) on the final data |
 | `output/06_boxplots_before.png`, `06_boxplots_after.png` | Box plots used in the slides |
 | `docs/Project_Proposal_Final_short.md`, `docs/Project_Proposal_Final.md` | Proposal (short version for submission; long version with references) |
+| `08_decision_tree.R` | Decision Tree: time split, growing and pruning the tree, tree plot (Aarushi; see section 7) |
+| `output/08_tree_models.rds` | **The fitted trees. Vishnu: use `final_tree` for accuracy on the training and test data.** |
+| `Part2_Decision_Tree.pptx` | Decision Tree slides (8 slides, with speaker notes), same design as Part 1 |
 
 **What each script does**
 
@@ -28,6 +31,7 @@ Date: 2026-11-04, updated 2026-11-12 · Data: USAID GHSC-PSM Health Commodity De
 | 04 | `03_…rds` → `04_*` | Outlier exploration (box plots, rules). Used to decide pre-processing. |
 | 05 | `03_…rds` → `05_model_data.rds` (27,950 rows) | The actual pre-processing |
 | 06 | `03_…rds`, `05_…rds` → `06_*.png` | Box plots for the slides |
+| 08 | `05_…rds` → `08_*` | Decision Tree (needs the `rpart` and `rpart.plot` packages) |
 
 ---
 
@@ -202,3 +206,63 @@ Blank *categories* (e.g., framework contract) are not removed; they stay as an "
 - "Plausible" means not ruled out by a rule. We did not confirm each value.
 - Decisions 1 and 4 remove 606 lines (2.1%), and the outcome rate stays at 11.4%.
 - `04_boxplot_outliers.R` and its `04_*` outputs are the exploration that led to these rules: 6 rules, with bad values blanked rather than removed. Their figures can differ slightly from the final ones above.
+
+---
+
+## 7. Decision Tree (Aarushi)
+
+Script: `08_decision_tree.R` (input `output/05_model_data.rds`). Packages: `rpart` (comes with R) and `rpart.plot` (`install.packages("rpart.plot")` once). Slides: `Part2_Decision_Tree.pptx` (8 slides, speaker notes in each slide).
+
+### Split by time
+
+| Set | Orders entered | Lines | Orders | Not On Time |
+|---|---|---|---|---|
+| Training | Oct 2, 2017 – Dec 30, 2021 | 23,346 (83.5%) | 10,467 | 2,697 (11.6%) |
+| Test | Jan 4, 2022 – Aug 8, 2023 | 4,604 (16.5%) | 2,281 | 476 (10.3%) |
+
+Cut-off `order_entry_date < "2022-01-01"`, as in section 4. No order is in both sets. **Ethan: please use the same cut-off** so the two models are compared on the same lines.
+
+### How the tree was grown
+
+| Setting | Value | Why |
+|---|---|---|
+| Predictors | All 21, original scale (no log versions) | A tree only asks "above or below X?", so logs change nothing |
+| `parms = list(prior = c(0.5, 0.5))` | Equal weight for both classes | With the default, the tree makes **0 splits** and predicts "On Time" for every line, because Not On Time never becomes the majority in any node |
+| `cp = 0.0005`, `minbucket = 50` | Grow a large tree (131 splits) first | It is pruned back in the next step; every leaf keeps at least 50 lines |
+| `xval` = 10 folds **grouped by order** | All lines of an order in the same fold | Lines of one order are near-duplicates; random folds make the CV error look too good |
+| Pruning | 1-SE rule → **56 splits, 57 leaves** | Lowest CV error is at 64 leaves (0.663); 57 leaves is within one standard error (0.673) |
+
+### Results used on the slides
+
+- **Variable importance (top 5, share of 100):** supplier slack 12.6, country 11.3, product category 9.0, planned lead time 8.3, days left at PO 8.1. Quantity, price and line value together: 4.1.
+- **Plotted tree:** the top 9 splits (10 leaves) of the final tree. Pruning only removes the lowest splits, so these are the final tree's first splits. Boxes show the **actual** Not On Time share of training lines (with equal priors, the probabilities rpart prints are re-weighted, not real shares).
+- **First split:** supplier slack < 71 days → 15.2% Not On Time vs. 7.4%. Then country, PO processing time, planned lead time and transport mode (`output/08_tree_leaves.csv`).
+- **Robustness:** without `slack`, and with DV B (late only), the first split is days left at PO and country stays in the top 3 (`output/08_robustness.csv`).
+
+### For Vishnu (accuracy on the training and test data)
+
+```r
+library(rpart)
+m     <- readRDS("output/05_model_data.rds")
+trees <- readRDS("output/08_tree_models.rds")    # final_tree, display_tree, cutoff, predictors, ...
+train <- m[m$order_entry_date <  trees$cutoff, ]
+test  <- m[m$order_entry_date >= trees$cutoff, ]
+pred_test <- predict(trees$final_tree, test, type = "class")   # "On Time" / "Not On Time"
+table(actual = test$dv_not_on_time, predicted = pred_test)
+```
+
+Use `final_tree` (57 leaves) for accuracy. `display_tree` is only the plotted top of it. `tree_no_slack` and `tree_late` are the robustness trees.
+
+### Outputs (`output/08_*`)
+
+| File | What it is |
+|---|---|
+| `08_split_summary.csv` | Training/test table above |
+| `08_tree_size.csv`, `08_cp_table.csv`, `08_cp_plot.png` | CP table and the cross-validated error plot |
+| `08_variable_importance.csv` | Importance of all 21 predictors |
+| `08_tree_plot.png` | The plotted tree (top 10 leaves) |
+| `08_tree_leaves.csv` | Each plotted leaf: rule, lines and Not On Time share in training and test |
+| `08_flag_rates.csv` | Not On Time share of flagged vs. other lines (plotted tree) |
+| `08_robustness.csv` | Trees without slack and with DV B |
+| `08_tree_print.txt` | Text print of the plotted tree and the CP table |
+| `08_tree_models.rds` | All fitted trees |

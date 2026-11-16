@@ -1,0 +1,11 @@
+"Node","Rule","Prediction","Train_lines","Train_rate","Test_lines","Test_rate"
+21,"Supplier slack>=70.5  AND  Country=Other, Mozambique, Congo DRC, Tanzania, Zimbabwe, Cameroon, Côte d'Ivoire  AND  Supplier slack>=109.5  AND  Entry to PO>=407.5","Not On Time (flag)",82,0.402,10,0
+7,"Supplier slack< 70.5  AND  Country=Other, Tanzania, Zimbabwe, Rwanda, Cameroon, Côte d'Ivoire","Not On Time (flag)",4258,0.224,420,0.114
+23,"Supplier slack>=70.5  AND  Country=Other, Mozambique, Congo DRC, Tanzania, Zimbabwe, Cameroon, Côte d'Ivoire  AND  Supplier slack< 109.5  AND  Transport mode=Sea, Multiple","Not On Time (flag)",926,0.193,201,0.144
+55,"Supplier slack< 70.5  AND  Country=Mozambique, Congo DRC, Nigeria, Zambia, Haiti, Uganda, Ethiopia  AND  PO processing time>=26.5  AND  Planned lead time< 245.5  AND  Country=Mozambique, Congo DRC, Nigeria, Zambia, Haiti, Uganda","Not On Time (flag)",3015,0.184,529,0.164
+26,"Supplier slack< 70.5  AND  Country=Mozambique, Congo DRC, Nigeria, Zambia, Haiti, Uganda, Ethiopia  AND  PO processing time>=26.5  AND  Planned lead time>=245.5","On Time",1835,0.08,133,0.105
+22,"Supplier slack>=70.5  AND  Country=Other, Mozambique, Congo DRC, Tanzania, Zimbabwe, Cameroon, Côte d'Ivoire  AND  Supplier slack< 109.5  AND  Transport mode=Air, Land","On Time",1697,0.078,584,0.132
+12,"Supplier slack< 70.5  AND  Country=Mozambique, Congo DRC, Nigeria, Zambia, Haiti, Uganda, Ethiopia  AND  PO processing time< 26.5","On Time",3111,0.073,968,0.129
+20,"Supplier slack>=70.5  AND  Country=Other, Mozambique, Congo DRC, Tanzania, Zimbabwe, Cameroon, Côte d'Ivoire  AND  Supplier slack>=109.5  AND  Entry to PO< 407.5","On Time",5429,0.066,1169,0.062
+4,"Supplier slack>=70.5  AND  Country=Nigeria, Zambia, Haiti, Uganda, Ethiopia, Rwanda","On Time",2795,0.039,482,0.041
+54,"Supplier slack< 70.5  AND  Country=Mozambique, Congo DRC, Nigeria, Zambia, Haiti, Uganda, Ethiopia  AND  PO processing time>=26.5  AND  Planned lead time< 245.5  AND  Country=Ethiopia","On Time",198,0.005,108,0.028
