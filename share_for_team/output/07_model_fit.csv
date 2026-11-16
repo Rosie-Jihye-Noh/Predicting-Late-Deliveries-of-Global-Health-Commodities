@@ -1,0 +1,4 @@
+"Model","Outcome","Coefficients","AIC","Signif_at_0.05"
+"Main (Not On Time)","dv_not_on_time",52,15349.9224415678,28
+"Without slack","dv_not_on_time",51,15506.7262062066,26
+"Late only (DV B)","dv_late_only",52,14472.3845242281,31

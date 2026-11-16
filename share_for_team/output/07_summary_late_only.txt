@@ -1,0 +1,123 @@
+
+Call:
+glm(formula = as.formula(paste("dv_late_only ~", predictors)), 
+    family = "binomial", data = train.df)
+
+Coefficients:
+                                                       Estimate Std. Error z value
+(Intercept)                                          -0.8435595  0.1706389  -4.944
+log_ordered_qty                                      -0.0547879  0.0294025  -1.863
+log_unit_price                                        0.0628597  0.0379054   1.658
+log_lines_per_order                                  -0.5914292  0.0793522  -7.453
+request_gap                                           0.0014565  0.0003180   4.580
+usaid_approval_days                                   0.0014649  0.0016002   0.915
+po_processing_days                                    0.0029867  0.0005957   5.014
+entry_to_po                                          -0.0014858  0.0003906  -3.804
+days_left_at_po                                      -0.0047013  0.0004252 -11.057
+slack                                                -0.0063109  0.0004840 -13.039
+order_typeDistribution Order                         -2.4577583  0.8309523  -2.958
+tlpDCP                                               -0.0849660  0.0850174  -0.999
+transportLand                                         0.3112772  0.0898041   3.466
+transportSea                                          0.6935129  0.0759384   9.133
+transportMultiple                                     0.6608463  0.5090915   1.298
+task_orderTO2                                        -0.1420401  0.1353776  -1.049
+task_orderTO3                                        -0.7387241  0.1767533  -4.179
+task_orderTO4                                         0.4166136  0.1481584   2.812
+productLaboratory Consumables                        -0.0385864  0.0685957  -0.563
+productOther                                         -0.1865614  0.0989936  -1.885
+productHIV/AIDS Pharmaceuticals                      -0.5560203  0.1287470  -4.319
+productMalaria Pharmaceuticals                       -0.0861758  0.1676998  -0.514
+productEssential Medicines                           -0.4749075  0.1290709  -3.679
+productMedical Supplies                               0.2500329  0.1227033   2.038
+productRespiratory Support                           -0.3504567  0.1486593  -2.357
+productLaboratory Equipment                          -0.0798276  0.1441779  -0.554
+productLong Lasting Insecticide Treated Nets (LLINs)  0.1785022  0.2068683   0.863
+productMale Condoms                                   0.0752108  0.1736841   0.433
+countryMozambique                                    -0.2679121  0.1030810  -2.599
+countryCongo DRC                                      0.3449155  0.1065565   3.237
+countryNigeria                                       -0.6832012  0.1115801  -6.123
+countryZambia                                         0.2588876  0.1043761   2.480
+countryHaiti                                         -0.5612293  0.1311114  -4.281
+countryUganda                                         0.0957323  0.1183631   0.809
+countryTanzania                                       0.8250255  0.0963862   8.560
+countryEthiopia                                      -1.7344292  0.2481876  -6.988
+countryZimbabwe                                       0.3402243  0.1394985   2.439
+countryRwanda                                         0.2593434  0.1273429   2.037
+countryCameroon                                       0.1026987  0.1300427   0.790
+countryCôte d'Ivoire                                 -0.1204337  0.1531910  -0.786
+frameworkNon-Framework                                0.2669573  0.0620155   4.305
+frameworkUnknown                                      0.2365334  0.2181104   1.084
+fundingCORE Commodity Funding                        -0.0411199  0.0963595  -0.427
+fundingOther Donors Commodity Funding                 0.7346746  0.1826712   4.022
+fundingUnknown                                        0.4924946  0.2945915   1.672
+vendor_incoDDP                                       -1.0758211  0.1039535 -10.349
+vendor_incoUnknown                                    1.7588806  0.8050884   2.185
+vendor_incoDAP                                       -0.7218541  0.0963890  -7.489
+vendor_incoCIP                                       -0.1356255  0.2162083  -0.627
+vendor_incoOther                                     -0.2991577  0.1859959  -1.608
+dest_incoDAP                                          0.5249239  0.0642355   8.172
+dest_incoOther                                        0.2756858  0.1156573   2.384
+                                                     Pr(>|z|)    
+(Intercept)                                          7.67e-07 ***
+log_ordered_qty                                      0.062410 .  
+log_unit_price                                       0.097251 .  
+log_lines_per_order                                  9.11e-14 ***
+request_gap                                          4.65e-06 ***
+usaid_approval_days                                  0.359969    
+po_processing_days                                   5.34e-07 ***
+entry_to_po                                          0.000142 ***
+days_left_at_po                                       < 2e-16 ***
+slack                                                 < 2e-16 ***
+order_typeDistribution Order                         0.003099 ** 
+tlpDCP                                               0.317603    
+transportLand                                        0.000528 ***
+transportSea                                          < 2e-16 ***
+transportMultiple                                    0.194257    
+task_orderTO2                                        0.294080    
+task_orderTO3                                        2.92e-05 ***
+task_orderTO4                                        0.004924 ** 
+productLaboratory Consumables                        0.573762    
+productOther                                         0.059487 .  
+productHIV/AIDS Pharmaceuticals                      1.57e-05 ***
+productMalaria Pharmaceuticals                       0.607343    
+productEssential Medicines                           0.000234 ***
+productMedical Supplies                              0.041580 *  
+productRespiratory Support                           0.018401 *  
+productLaboratory Equipment                          0.579802    
+productLong Lasting Insecticide Treated Nets (LLINs) 0.388204    
+productMale Condoms                                  0.664991    
+countryMozambique                                    0.009348 ** 
+countryCongo DRC                                     0.001208 ** 
+countryNigeria                                       9.18e-10 ***
+countryZambia                                        0.013126 *  
+countryHaiti                                         1.86e-05 ***
+countryUganda                                        0.418629    
+countryTanzania                                       < 2e-16 ***
+countryEthiopia                                      2.78e-12 ***
+countryZimbabwe                                      0.014732 *  
+countryRwanda                                        0.041693 *  
+countryCameroon                                      0.429685    
+countryCôte d'Ivoire                                 0.431770    
+frameworkNon-Framework                               1.67e-05 ***
+frameworkUnknown                                     0.278158    
+fundingCORE Commodity Funding                        0.669573    
+fundingOther Donors Commodity Funding                5.77e-05 ***
+fundingUnknown                                       0.094566 .  
+vendor_incoDDP                                        < 2e-16 ***
+vendor_incoUnknown                                   0.028910 *  
+vendor_incoDAP                                       6.94e-14 ***
+vendor_incoCIP                                       0.530469    
+vendor_incoOther                                     0.107745    
+dest_incoDAP                                         3.04e-16 ***
+dest_incoOther                                       0.017142 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 15906  on 23345  degrees of freedom
+Residual deviance: 14368  on 23294  degrees of freedom
+AIC: 14472
+
+Number of Fisher Scoring iterations: 6
+
