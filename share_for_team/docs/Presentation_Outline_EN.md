@@ -5,8 +5,6 @@
 
 > ⚠️ **Note: numbers may change.** If we drop `order_type` from the logistic regression (recommended, see [Appendix A-2](#a-2-columns-and-variable-selection-dimension-reduction-data)), some LR numbers in this outline may shift slightly (in the decimals). We'll re-check the final numbers once that change is made.
 
-The same outline as a Word file: [Presentation_Outline_EN.docx](Presentation_Outline_EN.docx)
-
 ---
 
 ## How to read this outline
