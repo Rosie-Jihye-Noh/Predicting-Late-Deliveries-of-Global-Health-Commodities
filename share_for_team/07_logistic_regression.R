@@ -11,6 +11,9 @@
 #   - Size: log_ordered_qty + log_unit_price (log_line_value left out: it is ~ their sum, r = 0.99)
 #   - Timing: entry_to_po + days_left_at_po (planned_lead left out: planned_lead = entry_to_po + days_left_at_po exactly)
 #   - slack kept in the main model; a model without slack is run as a leakage check
+#   - order_type left out (update 2026-11-26, Week 12 dimension reduction): every Distribution Order has
+#     vendor incoterm "Unknown", so order_type and vendor_inco = Unknown were nearly the same column.
+#     The vendor_incoUnknown coefficient now carries the distribution-order effect.
 #
 # Input:  output/05_model_data.rds (27,950 rows, from 05_preprocess.R)
 # Output: output/07_* files (listed at the bottom)
@@ -43,7 +46,7 @@ split_tbl     # expected: 23,346 train (11.6% Not On Time) / 4,604 test (10.3%)
 predictors <- "log_ordered_qty + log_unit_price + log_lines_per_order +
                request_gap + usaid_approval_days + po_processing_days +
                entry_to_po + days_left_at_po + slack +
-               order_type + tlp + transport + task_order + product + country +
+               tlp + transport + task_order + product + country +
                framework + funding + vendor_inco + dest_inco"
 
 logit.reg <- glm(as.formula(paste("dv_not_on_time ~", predictors)),
@@ -87,22 +90,12 @@ interp_tbl$Pct.Change.in.Odds <- (interp_tbl$Odds.Ratio - 1) * 100
 rownames(interp_tbl) <- NULL
 print(format(interp_tbl, digits = 3), row.names = FALSE)
 
-# Overlap found in this step: every Distribution Order has vendor incoterm "Unknown"
+# Why order_type is not in the model: every Distribution Order has vendor incoterm "Unknown"
 # (warehouse shipments have no supplier incoterm), and almost every "Unknown" is a Distribution Order.
 table(train.df$order_type, train.df$vendor_inco)
-# So the two dummies are nearly the same column. Their separate coefficients are unstable
-# (large standard errors, opposite signs), but their SUM is the effect of a typical distribution order.
-# Team decision: keep both and interpret the combined effect.
-combo <- c("order_typeDistribution Order", "vendor_incoUnknown")
-combo_b  <- sum(b[combo])
-combo_se <- sqrt(sum(vcov(logit.reg)[combo, combo]))
-combo_tbl <- data.frame(Term = "Distribution Order + vendor incoterm Unknown (combined)",
-                        Estimate = combo_b, Std.Error = combo_se,
-                        p.value = 2 * pnorm(-abs(combo_b / combo_se)),
-                        Odds.Ratio = exp(combo_b),
-                        OR_95CI_low = exp(combo_b - 1.96 * combo_se),
-                        OR_95CI_high = exp(combo_b + 1.96 * combo_se))
-combo_tbl
+# With both in the model, the two dummies were nearly the same column (unstable ORs of 0.10 and 5.53).
+# Without order_type, the effect of a distribution order is read from vendor_incoUnknown (vs. FCA):
+coefs_main[coefs_main$Term == "vendor_incoUnknown", ]
 
 # Which groups of variables matter overall? (likelihood-ratio test for each variable, all levels together)
 lr_tests <- drop1(logit.reg, test = "LRT")
@@ -154,7 +147,6 @@ dir.create("output", showWarnings = FALSE)
 write.csv(split_tbl,   "output/07_split_summary.csv",       row.names = FALSE)
 write.csv(coefs_main,  "output/07_coefficients_main.csv",   row.names = FALSE)
 write.csv(interp_tbl,  "output/07_interpretation_scaled.csv", row.names = FALSE)
-write.csv(combo_tbl,   "output/07_distribution_order_combined.csv", row.names = FALSE)
 write.csv(data.frame(Term = rownames(lr_tests), lr_tests, row.names = NULL, check.names = FALSE),
           "output/07_variable_tests.csv", row.names = FALSE)
 write.csv(robust_tbl,  "output/07_robustness_coefficients.csv", row.names = FALSE)
