@@ -1,0 +1,49 @@
+"Model","Set","Rule","Cutoff","Actual","Predicted","Count"
+"Main","Training","Lecture default",0.5,"On Time","On Time",20579
+"Main","Training","Lecture default",0.5,"On Time","Not On Time",70
+"Main","Training","Lecture default",0.5,"Not On Time","On Time",2657
+"Main","Training","Lecture default",0.5,"Not On Time","Not On Time",40
+"Main","Training","Training prevalence",0.115523001799023,"On Time","On Time",13557
+"Main","Training","Training prevalence",0.115523001799023,"On Time","Not On Time",7092
+"Main","Training","Training prevalence",0.115523001799023,"Not On Time","On Time",889
+"Main","Training","Training prevalence",0.115523001799023,"Not On Time","Not On Time",1808
+"Main","Test","Lecture default",0.5,"On Time","On Time",4116
+"Main","Test","Lecture default",0.5,"On Time","Not On Time",12
+"Main","Test","Lecture default",0.5,"Not On Time","On Time",475
+"Main","Test","Lecture default",0.5,"Not On Time","Not On Time",1
+"Main","Test","Training prevalence",0.115523001799023,"On Time","On Time",2902
+"Main","Test","Training prevalence",0.115523001799023,"On Time","Not On Time",1226
+"Main","Test","Training prevalence",0.115523001799023,"Not On Time","On Time",246
+"Main","Test","Training prevalence",0.115523001799023,"Not On Time","Not On Time",230
+"Without supplier slack","Training","Lecture default",0.5,"On Time","On Time",20616
+"Without supplier slack","Training","Lecture default",0.5,"On Time","Not On Time",33
+"Without supplier slack","Training","Lecture default",0.5,"Not On Time","On Time",2671
+"Without supplier slack","Training","Lecture default",0.5,"Not On Time","Not On Time",26
+"Without supplier slack","Training","Training prevalence",0.115523001799023,"On Time","On Time",13313
+"Without supplier slack","Training","Training prevalence",0.115523001799023,"On Time","Not On Time",7336
+"Without supplier slack","Training","Training prevalence",0.115523001799023,"Not On Time","On Time",915
+"Without supplier slack","Training","Training prevalence",0.115523001799023,"Not On Time","Not On Time",1782
+"Without supplier slack","Test","Lecture default",0.5,"On Time","On Time",4115
+"Without supplier slack","Test","Lecture default",0.5,"On Time","Not On Time",13
+"Without supplier slack","Test","Lecture default",0.5,"Not On Time","On Time",473
+"Without supplier slack","Test","Lecture default",0.5,"Not On Time","Not On Time",3
+"Without supplier slack","Test","Training prevalence",0.115523001799023,"On Time","On Time",2673
+"Without supplier slack","Test","Training prevalence",0.115523001799023,"On Time","Not On Time",1455
+"Without supplier slack","Test","Training prevalence",0.115523001799023,"Not On Time","On Time",227
+"Without supplier slack","Test","Training prevalence",0.115523001799023,"Not On Time","Not On Time",249
+"Late only (DV B)","Training","Lecture default",0.5,"Within late limit","Within late limit",20778
+"Late only (DV B)","Training","Lecture default",0.5,"Within late limit","Late",65
+"Late only (DV B)","Training","Lecture default",0.5,"Late","Within late limit",2441
+"Late only (DV B)","Training","Lecture default",0.5,"Late","Late",62
+"Late only (DV B)","Training","Training prevalence",0.107213227105286,"Within late limit","Within late limit",13838
+"Late only (DV B)","Training","Training prevalence",0.107213227105286,"Within late limit","Late",7005
+"Late only (DV B)","Training","Training prevalence",0.107213227105286,"Late","Within late limit",784
+"Late only (DV B)","Training","Training prevalence",0.107213227105286,"Late","Late",1719
+"Late only (DV B)","Test","Lecture default",0.5,"Within late limit","Within late limit",4186
+"Late only (DV B)","Test","Lecture default",0.5,"Within late limit","Late",11
+"Late only (DV B)","Test","Lecture default",0.5,"Late","Within late limit",406
+"Late only (DV B)","Test","Lecture default",0.5,"Late","Late",1
+"Late only (DV B)","Test","Training prevalence",0.107213227105286,"Within late limit","Within late limit",3090
+"Late only (DV B)","Test","Training prevalence",0.107213227105286,"Within late limit","Late",1107
+"Late only (DV B)","Test","Training prevalence",0.107213227105286,"Late","Within late limit",228
+"Late only (DV B)","Test","Training prevalence",0.107213227105286,"Late","Late",179
